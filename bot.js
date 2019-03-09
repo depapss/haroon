@@ -34,6 +34,107 @@ const sql = require("sqlite");
  
 
 
+client.on('message', message => {
+
+ 
+
+    if (message.content === "قفل الشات") {
+
+                        if(!message.channel.guild) return message.reply(' This command only for servers');
+
+ 
+
+if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' ليس لديك صلاحيات');
+
+           message.channel.overwritePermissions(message.guild.id, {
+
+         SEND_MESSAGES: false
+
+ 
+
+           }).then(() => {
+
+               message.reply("تم تقفيل الشات :white_check_mark: ")
+
+           });
+
+             }
+
+ 
+
+if (message.content === "فتح الشات") {
+
+    if(!message.channel.guild) return message.reply(' This command only for servers');
+
+ 
+
+if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('ليس لديك صلاحيات');
+
+           message.channel.overwritePermissions(message.guild.id, {
+
+         SEND_MESSAGES: true
+
+ 
+
+           }).then(() => {
+
+               message.reply("تم فتح الشات:white_check_mark:")
+
+           });
+
+             }
+
+ 
+
+ 
+
+ 
+
+});
+
+
+
+
+
+
+
+
+ client.on('message', message => {
+    if (message.content.startsWith("رابط")) {
+ 
+  message.channel.createInvite({
+        thing: true,
+        maxUses: 5,
+        maxAge: 86400
+    }).then(invite =>
+      message.author.sendMessage(invite.url)
+    )
+    const embed = new Discord.RichEmbed()
+        .setColor("RANDOM")
+        .setDescription("| :white_check_mark:  | :heart:  تم ارسال الرابط على الخاص  ")
+      message.channel.sendEmbed(embed).then(message => {message.delete(10000)})
+              const Embed11 = new Discord.RichEmbed()
+        .setColor("RANDOM")
+                .setAuthor(message.guild.name, message.guild.iconURL)
+        .setDescription(`
+**
+---------------------
+-[${message.guild.name}]  هذا هو رابط سيرفر
+---------------------
+-هذا الرابط صالح للأستخدام 5 مرات 
+---------------------
+-هذا الرابط صالح لمده 24 ساعه 
+---------------------
+**`)
+      message.author.sendEmbed(Embed11)
+    }
+}); 
+
+
+
+
+
+
 
  client.on("message", message => {
     var prefix = "رسالة";
